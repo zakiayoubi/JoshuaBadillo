@@ -34,26 +34,22 @@ app.post("/submit", async (req, res) => {
     const {name, email, message} = req.body
 
     const transporter = nodemailer.createTransport({
-        host: "smtp.elasticemail.com",
-        port: 2525,          // as provided
-        secure: false,       // TLS is false for port 2525
-        auth: {
-            user: process.env.EMAIL_USER,  // zakihorakhsh2028@gmail.com
-            pass: process.env.EMAIL_PASS   // SMTP API key
-        },
-        tls: { rejectUnauthorized: false } // optional but safer for cloud
+      host: "smtp.elasticemail.com",
+      port: 2525,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
     });
-    console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS);
 
-
-    // EMAIL details
-    const mailOptions = 
-    {
-        from: email,
-        to: process.env.EMAIL_USER,
-        subject: `Portfolio message from ${name}`,
-        text: message
-    }
+    // Email details
+    const mailOptions = {
+      from: process.env.EMAIL_USER,   // must match Elastic verified sender
+      to: process.env.EMAIL_USER,     // your inbox
+      replyTo: email,                 // user’s email for easy reply
+      subject: `Portfolio message from ${name}`,
+      text: message,
+    };
 
     try {
         await transporter.sendMail(mailOptions);
