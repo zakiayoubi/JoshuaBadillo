@@ -45,7 +45,7 @@ app.post("/submit", async (req, res) => {
     // Email details
     const mailOptions = {
       from: process.env.EMAIL_USER,   // must match Elastic verified sender
-      to: process.env.EMAIL_USER,     // your inbox
+      to: process.env.RECEIVER_EMAIL,     // your inbox
       replyTo: email,                 // user’s email for easy reply
       subject: `Portfolio message from ${name}`,
       text: message,
