@@ -39,7 +39,11 @@ app.post("/submit", async (req, res) => {
             user: process.env.EMAIL_USER,
             pass: process.env.EMAIL_PASS,
         },
+        tls: {
+        rejectUnauthorized: false
+    }
     });
+    
 
     // EMAIL details
     const mailOptions = 
@@ -52,10 +56,12 @@ app.post("/submit", async (req, res) => {
 
     try {
         await transporter.sendMail(mailOptions);
+        console.log("Email sent successfully!");
         req.session.feedback = "✅ Message sent successfully."
         res.redirect("/")
     } catch (error) {
         console.error(error);
+        console.error("Email failed:", error);
         req.session.feedback = "❌ Failed to send message. Try again later."
         res.redirect("/")
     }
