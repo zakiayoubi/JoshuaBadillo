@@ -4,10 +4,12 @@ import dotenv from "dotenv"
 import nodemailer from "nodemailer"
 import session from "express-session"
 
+dotenv.config();
+
 const app = express()
 const PORT = process.env.PORT || 3000;
 
-dotenv.config();
+
 // app.set("view engine", "ejs");
 // app.set("views", "views");  // folder path
 
